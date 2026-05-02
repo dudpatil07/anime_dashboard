@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Anime Profile - AnimeVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff2a6d;
+            --secondary: #05d9e8;
+            --accent: #d1f7ff;
+            --dark: #0a0a0f;
+            --darker: #050508;
+            --card-bg: rgba(15, 15, 25, 0.9);
+            --glass: rgba(255, 255, 255, 0.05);
+            --neon-pink: #ff2a6d;
+            --neon-cyan: #05d9e8;
+            --neon-purple: #b026ff;
+            --neon-yellow: #ffd700;
+            --neon-green: #39ff14;
+            --neon-orange: #ff8c00;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--darker);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-animation {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(255, 42, 109, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(5, 217, 232, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(176, 38, 255, 0.1) 0%, transparent 50%),
+                var(--darker);
+        }
+
+        /* Header */
+        header {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(5, 5, 8, 0.9); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 42, 109, 0.3); padding: 0 2rem;
+        }
+        .header-content {
+            max-width: 1400px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; height: 70px;
+        }
+        .logo {
+            font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            cursor: pointer; letter-spacing: 2px; text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 0.5rem; }
+        .nav-btn {
+            background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #fff;
+            padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer;
+            font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 1rem;
+            transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem;
+            text-decoration: none;
+        }
+        .nav-btn:hover, .nav-btn.active {
+            border-color: var(--primary); box-shadow: 0 0 20px rgba(255, 42, 109, 0.3);
+            transform: translateY(-2px); background: rgba(255, 42, 109, 0.15);
+        }
+
+        /* Main */
+        main { margin-top: 70px; padding: 2rem; max-width: 1400px; margin-left: auto; margin-right: auto; }
+
+        /* Setup Form */
+        .setup-section {
+            max-width: 600px; margin: 3rem auto; padding: 2.5rem;
+            background: var(--card-bg); border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.1); text-align: center;
+        }
+        .setup-title {
+            font-family: 'Orbitron', sans-serif; font-size: 2rem; margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .setup-subtitle { color: rgba(255,255,255,0.6); margin-bottom: 2rem; font-size: 1.1rem; }
+        .form-group { margin-bottom: 1.5rem; text-align: left; }
+        .form-label {
+            display: block; font-weight: 600; color: var(--secondary);
+            margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;
+        }
+        .form-input {
+            width: 100%; padding: 0.9rem 1.2rem;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; color: #fff; font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem; outline: none; transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: var(--secondary); box-shadow: 0 0 20px rgba(5, 217, 232, 0.2);
+            background: rgba(255,255,255,0.08);
+        }
+        .save-btn {
+            width: 100%; padding: 1rem; margin-top: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--neon-purple));
+            border: none; border-radius: 12px; color: #fff;
+            font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 1.1rem;
+            cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .save-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255, 42, 109, 0.4); }
+
+        /* Profile Header */
+        .profile-header {
+            display: flex; align-items: center; gap: 2rem; margin-bottom: 2rem;
+            padding: 2rem; background: var(--card-bg); border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .profile-avatar {
+            width: 120px; height: 120px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; color: #fff; border: 4px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 30px rgba(255, 42, 109, 0.3);
+        }
+        .profile-info { flex: 1; }
+        .profile-name {
+            font-family: 'Orbitron', sans-serif; font-size: 2.5rem; font-weight: 900;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .profile-joined { color: rgba(255,255,255,0.5); margin-top: 0.3rem; }
+        .profile-badges { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+        .profile-badge {
+            padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03);
+        }
+        .badge-sport { border-color: var(--neon-green); color: var(--neon-green); }
+        .badge-game { border-color: var(--neon-orange); color: var(--neon-orange); }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem; margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--card-bg); border-radius: 16px; padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px); border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(255, 42, 109, 0.2);
+        }
+        .stat-icon {
+            width: 50px; height: 50px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-bottom: 1rem;
+        }
+        .stat-icon.pink { background: rgba(255, 42, 109, 0.15); color: var(--primary); }
+        .stat-icon.cyan { background: rgba(5, 217, 232, 0.15); color: var(--secondary); }
+        .stat-icon.purple { background: rgba(176, 38, 255, 0.15); color: var(--neon-purple); }
+        .stat-icon.yellow { background: rgba(255, 215, 0, 0.15); color: var(--neon-yellow); }
+        .stat-value {
+            font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 900;
+            color: #fff; margin-bottom: 0.3rem;
+        }
+        .stat-label { color: rgba(255,255,255,0.5); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
+        .stat-bar {
+            width: 100%; height: 6px; background: rgba(255,255,255,0.05);
+            border-radius: 3px; margin-top: 0.8rem; overflow: hidden;
+        }
+        .stat-bar-fill {
+            height: 100%; border-radius: 3px; transition: width 1s ease;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 700;
+            margin: 2rem 0 1rem; display: flex; align-items: center; gap: 0.8rem;
+            color: var(--secondary);
+        }
+        .section-title i { font-size: 1.2rem; }
+
+        /* Charts */
+        .chart-container {
+            background: var(--card-bg); border-radius: 16px; padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.05); margin-bottom: 2rem;
+        }
+        .chart-title {
+            font-family: 'Orbitron', sans-serif; font-size: 1.1rem; margin-bottom: 1.5rem;
+            color: rgba(255,255,255,0.8);
+        }
+        .bar-chart {
+            display: flex; align-items: flex-end; gap: 0.5rem; height: 200px;
+            padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+        .bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+        .bar {
+            width: 100%; border-radius: 6px 6px 0 0; transition: all 0.3s ease; cursor: pointer;
+            position: relative;
+        }
+        .bar:hover { filter: brightness(1.3); }
+        .bar-label {
+            position: absolute; bottom: -25px; font-size: 0.75rem; color: rgba(255,255,255,0.5);
+            white-space: nowrap; transform: rotate(-30deg); transform-origin: top left;
+        }
+        .bar-value {
+            position: absolute; top: -20px; font-size: 0.8rem; font-weight: 700;
+            color: #fff; opacity: 0; transition: opacity 0.3s;
+        }
+        .bar:hover .bar-value { opacity: 1; }
+
+        /* Genre Tags */
+        .genre-cloud {
+            display: flex; flex-wrap: wrap; gap: 0.8rem;
+        }
+        .genre-tag {
+            padding: 0.6rem 1.2rem; border-radius: 25px; font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03);
+            transition: all 0.3s ease; cursor: pointer;
+        }
+        .genre-tag:hover {
+            transform: translateY(-2px); border-color: var(--secondary);
+            box-shadow: 0 5px 15px rgba(5, 217, 232, 0.2);
+        }
+        .genre-count {
+            display: inline-block; margin-left: 0.4rem; padding: 0.1rem 0.5rem;
+            background: var(--primary); border-radius: 10px; font-size: 0.75rem;
+        }
+
+        /* Achievements */
+        .achievements-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;
+        }
+        .achievement-card {
+            background: var(--card-bg); border-radius: 16px; padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.05); text-align: center;
+            transition: all 0.3s ease;
+        }
+        .achievement-card:hover { transform: translateY(-5px); border-color: var(--neon-yellow); }
+        .achievement-card.locked { opacity: 0.4; filter: grayscale(1); }
+        .achievement-icon {
+            width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 1rem;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; background: rgba(255, 215, 0, 0.15); color: var(--neon-yellow);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        .achievement-name { font-weight: 700; margin-bottom: 0.3rem; }
+        .achievement-desc { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+
+        /* Activity Timeline */
+        .timeline {
+            display: flex; gap: 0.3rem; align-items: flex-end; height: 100px;
+            padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 12px;
+        }
+        .timeline-day {
+            flex: 1; background: var(--primary); border-radius: 3px;
+            transition: all 0.3s ease; cursor: pointer; position: relative;
+        }
+        .timeline-day:hover { filter: brightness(1.3); }
+        .timeline-tooltip {
+            position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+            padding: 0.5rem 1rem; background: var(--card-bg); border-radius: 8px;
+            font-size: 0.8rem; white-space: nowrap; opacity: 0; pointer-events: none;
+            transition: opacity 0.3s; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .timeline-day:hover .timeline-tooltip { opacity: 1; }
+
+        /* Lists */
+        .anime-list {
+            display: flex; flex-direction: column; gap: 0.8rem;
+        }
+        .list-item {
+            display: flex; align-items: center; gap: 1rem; padding: 1rem;
+            background: rgba(255,255,255,0.03); border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;
+        }
+        .list-item:hover {
+            background: rgba(255,255,255,0.06); border-color: var(--primary);
+            transform: translateX(5px);
+        }
+        .list-rank {
+            font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900;
+            color: var(--primary); width: 40px; text-align: center;
+        }
+        .list-img {
+            width: 60px; height: 80px; border-radius: 8px; object-fit: cover;
+        }
+        .list-info { flex: 1; }
+        .list-title { font-weight: 700; margin-bottom: 0.2rem; }
+        .list-meta { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+        .list-score {
+            font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 900;
+            color: var(--neon-yellow);
+        }
+
+        /* Edit Button */
+        .edit-profile-btn {
+            position: fixed; bottom: 2rem; right: 2rem;
+            width: 60px; height: 60px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--neon-purple));
+            border: none; color: #fff; font-size: 1.5rem; cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 42, 109, 0.4);
+            transition: all 0.3s ease; z-index: 100;
+        }
+        .edit-profile-btn:hover { transform: scale(1.1) rotate(90deg); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-header { flex-direction: column; text-align: center; }
+            .profile-name { font-size: 1.8rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .achievements-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--darker); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">ANIMEVERSE</a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-btn"><i class="fas fa-compass"></i> Discover</a>
+                <a href="daily.html" class="nav-btn"><i class="fas fa-dice"></i> Daily Pick</a>
+                <a href="profile.html" class="nav-btn active"><i class="fas fa-user"></i> Profile</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Setup Form (shown if no profile) -->
+        <div class="setup-section" id="setupSection">
+            <h2 class="setup-title">Create Your Profile</h2>
+            <p class="setup-subtitle">Set up your anime stats dashboard</p>
+
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-user"></i> Your Name / Username</label>
+                <input type="text" class="form-input" id="usernameInput" placeholder="Enter your username...">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-running"></i> Favorite Sports Anime</label>
+                <input type="text" class="form-input" id="sportAnimeInput" placeholder="e.g. Haikyuu!!, Kuroko no Basket...">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-gamepad"></i> Favorite Video Game</label>
+                <input type="text" class="form-input" id="videoGameInput" placeholder="e.g. Persona 5, Genshin Impact...">
+            </div>
+
+            <button class="save-btn" onclick="saveProfile()">
+                <i class="fas fa-save"></i> Save Profile
+            </button>
+        </div>
+
+        <!-- Profile Dashboard (shown after setup) -->
+        <div id="profileDashboard" style="display: none;">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-avatar" id="profileAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h1 class="profile-name" id="profileName">User</h1>
+                    <p class="profile-joined" id="profileJoined">Joined: May 2026</p>
+                    <div class="profile-badges">
+                        <span class="profile-badge badge-sport" id="sportBadge"><i class="fas fa-running"></i> <span id="sportText">No fav sport</span></span>
+                        <span class="profile-badge badge-game" id="gameBadge"><i class="fas fa-gamepad"></i> <span id="gameText">No fav game</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon pink"><i class="fas fa-heart"></i></div>
+                    <div class="stat-value" id="favCount">0</div>
+                    <div class="stat-label">Favorites</div>
+                    <div class="stat-bar"><div class="stat-bar-fill" style="width: 0%; background: var(--primary);" id="favBar"></div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon cyan"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-value" id="watchCount">0</div>
+                    <div class="stat-label">Watched</div>
+                    <div class="stat-bar"><div class="stat-bar-fill" style="width: 0%; background: var(--secondary);" id="watchBar"></div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple"><i class="fas fa-bookmark"></i></div>
+                    <div class="stat-value" id="libCount">0</div>
+                    <div class="stat-label">In Library</div>
+                    <div class="stat-bar"><div class="stat-bar-fill" style="width: 0%; background: var(--neon-purple);" id="libBar"></div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon yellow"><i class="fas fa-star"></i></div>
+                    <div class="stat-value" id="avgScore">0.0</div>
+                    <div class="stat-label">Avg Score</div>
+                    <div class="stat-bar"><div class="stat-bar-fill" style="width: 0%; background: var(--neon-yellow);" id="scoreBar"></div></div>
+                </div>
+            </div>
+
+            <!-- Rating Distribution -->
+            <h3 class="section-title"><i class="fas fa-chart-bar"></i> Rating Distribution</h3>
+            <div class="chart-container">
+                <div class="bar-chart" id="ratingChart"></div>
+            </div>
+
+            <!-- Genre Breakdown -->
+            <h3 class="section-title"><i class="fas fa-tags"></i> Genre Breakdown</h3>
+            <div class="chart-container">
+                <div class="genre-cloud" id="genreCloud"></div>
+            </div>
+
+            <!-- Activity Timeline -->
+            <h3 class="section-title"><i class="fas fa-calendar-alt"></i> Activity (Last 30 Days)</h3>
+            <div class="chart-container">
+                <div class="timeline" id="activityTimeline"></div>
+            </div>
+
+            <!-- Achievements -->
+            <h3 class="section-title"><i class="fas fa-trophy"></i> Achievements</h3>
+            <div class="achievements-grid" id="achievementsGrid"></div>
+
+            <!-- Top Rated -->
+            <h3 class="section-title"><i class="fas fa-crown"></i> Top Rated Anime</h3>
+            <div class="anime-list" id="topRatedList"></div>
+        </div>
+    </main>
+
+    <button class="edit-profile-btn" id="editBtn" onclick="editProfile()" style="display: none;">
+        <i class="fas fa-cog"></i>
+    </button>
+
+    <script>
+
+        // Anime Data
+        const animeData = [
+            { id: 1, title: "Attack on Titan", genres: ["Action", "Drama", "Fantasy"], rating: 9.1, year: 2013, episodes: "87", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/10/47347.jpg" },
+            { id: 2, title: "Death Note", genres: ["Thriller", "Supernatural", "Psychological"], rating: 8.9, year: 2006, episodes: "37", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/9/9453.jpg" },
+            { id: 3, title: "One Piece", genres: ["Action", "Adventure", "Comedy", "Fantasy"], rating: 8.8, year: 1999, episodes: "1070+", status: "Ongoing", image: "https://cdn.myanimelist.net/images/anime/6/73245.jpg" },
+            { id: 4, title: "Demon Slayer", genres: ["Action", "Fantasy", "Supernatural"], rating: 8.7, year: 2019, episodes: "55", status: "Ongoing", image: "https://cdn.myanimelist.net/images/anime/1286/99889.jpg" },
+            { id: 5, title: "Fullmetal Alchemist: Brotherhood", genres: ["Action", "Adventure", "Fantasy", "Drama"], rating: 9.1, year: 2009, episodes: "64", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/1208/94745.jpg" },
+            { id: 6, title: "Jujutsu Kaisen", genres: ["Action", "Supernatural", "Thriller"], rating: 8.6, year: 2020, episodes: "47", status: "Ongoing", image: "https://cdn.myanimelist.net/images/anime/1171/109222.jpg" },
+            { id: 7, title: "Steins;Gate", genres: ["Sci-Fi", "Thriller", "Drama"], rating: 9.0, year: 2011, episodes: "24", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/5/73199.jpg" },
+            { id: 8, title: "Hunter x Hunter", genres: ["Action", "Adventure", "Fantasy"], rating: 9.0, year: 2011, episodes: "148", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/1337/99013.jpg" },
+            { id: 9, title: "Your Name", genres: ["Romance", "Supernatural", "Drama"], rating: 8.9, year: 2016, episodes: "Movie", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/5/87048.jpg" },
+            { id: 10, title: "Vinland Saga", genres: ["Action", "Adventure", "Drama"], rating: 8.7, year: 2019, episodes: "48", status: "Ongoing", image: "https://cdn.myanimelist.net/images/anime/1500/103005.jpg" },
+            { id: 11, title: "Mob Psycho 100", genres: ["Action", "Comedy", "Supernatural"], rating: 8.6, year: 2016, episodes: "37", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/8/80356.jpg" },
+            { id: 12, title: "Cowboy Bebop", genres: ["Action", "Sci-Fi", "Drama"], rating: 8.9, year: 1998, episodes: "26", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/4/19644.jpg" },
+            { id: 13, title: "My Hero Academia", genres: ["Action", "Comedy", "Supernatural"], rating: 8.2, year: 2016, episodes: "138", status: "Ongoing", image: "https://cdn.myanimelist.net/images/anime/10/78745.jpg" },
+            { id: 14, title: "Spirited Away", genres: ["Adventure", "Fantasy", "Supernatural"], rating: 8.8, year: 2001, episodes: "Movie", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/6/79597.jpg" },
+            { id: 15, title: "Haikyuu!!", genres: ["Sports", "Comedy", "Drama"], rating: 8.7, year: 2014, episodes: "85", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/7/76019.jpg" },
+            { id: 16, title: "Code Geass", genres: ["Action", "Sci-Fi", "Drama", "Thriller"], rating: 8.7, year: 2006, episodes: "50", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/5/50331.jpg" },
+            { id: 17, title: "Erased", genres: ["Thriller", "Supernatural", "Drama"], rating: 8.5, year: 2016, episodes: "12", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/10/77957.jpg" },
+            { id: 18, title: "Clannad: After Story", genres: ["Drama", "Romance", "Slice of Life", "Supernatural"], rating: 8.9, year: 2008, episodes: "24", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/13/24647.jpg" },
+            { id: 19, title: "Made in Abyss", genres: ["Adventure", "Fantasy", "Sci-Fi", "Drama"], rating: 8.7, year: 2017, episodes: "25", status: "Ongoing", image: "https://cdn.myanimelist.net/images/anime/6/86733.jpg" },
+            { id: 20, title: "The Promised Neverland", genres: ["Thriller", "Sci-Fi", "Supernatural", "Drama"], rating: 8.5, year: 2019, episodes: "23", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/1125/96929.jpg" },
+            { id: 21, title: "Violet Evergarden", genres: ["Drama", "Fantasy", "Slice of Life"], rating: 8.7, year: 2018, episodes: "13", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/1795/95088.jpg" },
+            { id: 22, title: "One Punch Man", genres: ["Action", "Comedy", "Sci-Fi", "Supernatural"], rating: 8.5, year: 2015, episodes: "24", status: "Ongoing", image: "https://cdn.myanimelist.net/images/anime/12/76049.jpg" },
+            { id: 23, title: "Toradora!", genres: ["Comedy", "Romance", "Slice of Life"], rating: 8.4, year: 2008, episodes: "25", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/13/22128.jpg" },
+            { id: 24, title: "Psycho-Pass", genres: ["Action", "Sci-Fi", "Thriller", "Drama"], rating: 8.3, year: 2012, episodes: "41", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/5/43399.jpg" },
+            { id: 25, title: "Kaguya-sama: Love is War", genres: ["Comedy", "Romance", "Psychological"], rating: 8.7, year: 2019, episodes: "37", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/1295/106551.jpg" },
+            { id: 26, title: "Re:Zero", genres: ["Fantasy", "Thriller", "Drama", "Supernatural"], rating: 8.2, year: 2016, episodes: "50", status: "Ongoing", image: "https://cdn.myanimelist.net/images/anime/11/79410.jpg" },
+            { id: 27, title: "Oregairu", genres: ["Comedy", "Drama", "Romance", "Slice of Life"], rating: 8.2, year: 2013, episodes: "38", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/11/49459.jpg" },
+            { id: 28, title: "Gintama", genres: ["Action", "Comedy", "Sci-Fi", "Drama"], rating: 9.0, year: 2006, episodes: "367", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/10/73274.jpg" },
+            { id: 29, title: "A Silent Voice", genres: ["Drama", "Slice of Life", "Romance"], rating: 8.9, year: 2016, episodes: "Movie", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/1122/96435.jpg" },
+            { id: 30, title: "Chainsaw Man", genres: ["Action", "Fantasy", "Horror", "Supernatural"], rating: 8.6, year: 2022, episodes: "12", status: "Ongoing", image: "https://cdn.myanimelist.net/images/anime/1806/126216.jpg" },
+            { id: 31, title: "Spy x Family", genres: ["Action", "Comedy", "Slice of Life"], rating: 8.6, year: 2022, episodes: "37", status: "Ongoing", image: "https://cdn.myanimelist.net/images/anime/1441/122795.jpg" },
+            { id: 32, title: "Dr. Stone", genres: ["Adventure", "Comedy", "Sci-Fi"], rating: 8.3, year: 2019, episodes: "57", status: "Ongoing", image: "https://cdn.myanimelist.net/images/anime/1613/102576.jpg" },
+            { id: 33, title: "Fruits Basket", genres: ["Comedy", "Drama", "Romance", "Supernatural", "Slice of Life"], rating: 8.6, year: 2019, episodes: "63", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/1447/99827.jpg" },
+            { id: 34, title: "Banana Fish", genres: ["Action", "Adventure", "Drama", "Thriller"], rating: 8.5, year: 2018, episodes: "24", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/1208/90452.jpg" },
+            { id: 35, title: "March Comes in Like a Lion", genres: ["Drama", "Slice of Life", "Sports"], rating: 8.7, year: 2016, episodes: "44", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/6/82898.jpg" },
+            { id: 36, title: "Black Lagoon", genres: ["Action", "Adventure", "Drama", "Thriller"], rating: 8.1, year: 2006, episodes: "29", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/1906/129049.jpg" },
+            { id: 37, title: "Anohana", genres: ["Drama", "Romance", "Supernatural", "Slice of Life"], rating: 8.4, year: 2011, episodes: "11", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/5/79697.jpg" },
+            { id: 38, title: "Gurren Lagann", genres: ["Action", "Adventure", "Comedy", "Sci-Fi"], rating: 8.6, year: 2007, episodes: "27", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/4/5123.jpg" },
+            { id: 39, title: "Monster", genres: ["Thriller", "Drama", "Mystery"], rating: 8.9, year: 2004, episodes: "74", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/10/18793.jpg" },
+            { id: 40, title: "Bakuman", genres: ["Comedy", "Drama", "Romance", "Slice of Life"], rating: 8.3, year: 2010, episodes: "75", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/6/26138.jpg" },
+            { id: 41, title: "Parasyte", genres: ["Action", "Horror", "Sci-Fi", "Supernatural"], rating: 8.4, year: 2014, episodes: "24", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/3/65187.jpg" },
+            { id: 42, title: "Nichijou", genres: ["Comedy", "Slice of Life"], rating: 8.5, year: 2011, episodes: "26", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/3/76688.jpg" },
+            { id: 43, title: "Run with the Wind", genres: ["Sports", "Drama", "Slice of Life"], rating: 8.5, year: 2018, episodes: "23", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/1936/94950.jpg" },
+            { id: 44, title: "Beastars", genres: ["Drama", "Fantasy", "Psychological", "Slice of Life"], rating: 8.2, year: 2019, episodes: "24", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/1234/102064.jpg" },
+            { id: 45, title: "Odd Taxi", genres: ["Mystery", "Drama", "Thriller"], rating: 8.7, year: 2021, episodes: "13", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/1983/111436.jpg" },
+            { id: 46, title: "Ping Pong the Animation", genres: ["Sports", "Drama", "Psychological"], rating: 8.6, year: 2014, episodes: "11", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/13/62191.jpg" },
+            { id: 47, title: "Land of the Lustrous", genres: ["Action", "Drama", "Fantasy", "Sci-Fi"], rating: 8.5, year: 2017, episodes: "12", status: "Ongoing", image: "https://cdn.myanimelist.net/images/anime/3/88293.jpg" },
+            { id: 48, title: "Shouwa Genroku Rakugo Shinjuu", genres: ["Drama", "Slice of Life"], rating: 8.6, year: 2016, episodes: "25", status: "Completed", image: "https://cdn.myanimelist.net/images/anime/10/82320.jpg" }
+        ];
+
+        let favorites = JSON.parse(localStorage.getItem('anime_favorites') || '[]');
+        let library = JSON.parse(localStorage.getItem('anime_library') || '[]');
+        let watched = JSON.parse(localStorage.getItem('anime_watched') || '[]');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkProfile();
+        });
+
+        // Check if profile exists
+        function checkProfile() {
+            const profile = JSON.parse(localStorage.getItem('animeverse_profile') || 'null');
+            if (profile) {
+                showDashboard(profile);
+            } else {
+                document.getElementById('setupSection').style.display = 'block';
+                document.getElementById('profileDashboard').style.display = 'none';
+                document.getElementById('editBtn').style.display = 'none';
+            }
+        }
+
+        // Save profile
+        function saveProfile() {
+            const username = document.getElementById('usernameInput').value.trim();
+            const sportAnime = document.getElementById('sportAnimeInput').value.trim();
+            const videoGame = document.getElementById('videoGameInput').value.trim();
+
+            if (!username) {
+                alert('Please enter your username!');
+                return;
+            }
+
+            const profile = {
+                username: username,
+                sportAnime: sportAnime || 'Not set',
+                videoGame: videoGame || 'Not set',
+                joined: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+            };
+
+            localStorage.setItem('animeverse_profile', JSON.stringify(profile));
+            showDashboard(profile);
+        }
+
+        // Show dashboard
+        function showDashboard(profile) {
+            document.getElementById('setupSection').style.display = 'none';
+            document.getElementById('profileDashboard').style.display = 'block';
+            document.getElementById('editBtn').style.display = 'flex';
+
+            // Update profile info
+            document.getElementById('profileName').textContent = profile.username;
+            document.getElementById('profileJoined').textContent = 'Joined: ' + profile.joined;
+            document.getElementById('sportText').textContent = profile.sportAnime;
+            document.getElementById('gameText').textContent = profile.videoGame;
+
+            // Set avatar initial
+            document.getElementById('profileAvatar').innerHTML = 
+                '<span style="font-family: Orbitron; font-size: 2.5rem;">' + profile.username.charAt(0).toUpperCase() + '</span>';
+
+            // Calculate stats
+            const favAnime = animeData.filter(a => favorites.includes(a.id));
+            const watchAnime = animeData.filter(a => watched.includes(a.id));
+            const libAnime = animeData.filter(a => library.includes(a.id));
+            const allRated = [...favAnime, ...watchAnime];
+
+            const avgScore = allRated.length > 0 
+                ? (allRated.reduce((sum, a) => sum + a.rating, 0) / allRated.length).toFixed(1)
+                : '0.0';
+
+            // Update stat cards
+            document.getElementById('favCount').textContent = favorites.length;
+            document.getElementById('watchCount').textContent = watched.length;
+            document.getElementById('libCount').textContent = library.length;
+            document.getElementById('avgScore').textContent = avgScore;
+
+            // Animate bars
+            const maxCount = Math.max(favorites.length, watched.length, library.length, 1);
+            setTimeout(() => {
+                document.getElementById('favBar').style.width = (favorites.length / maxCount * 100) + '%';
+                document.getElementById('watchBar').style.width = (watched.length / maxCount * 100) + '%';
+                document.getElementById('libBar').style.width = (library.length / maxCount * 100) + '%';
+                document.getElementById('scoreBar').style.width = (parseFloat(avgScore) / 10 * 100) + '%';
+            }, 300);
+
+            // Render charts
+            renderRatingChart(allRated);
+            renderGenreCloud(allRated);
+            renderActivityTimeline();
+            renderAchievements(favorites.length, watched.length, library.length);
+            renderTopRated(allRated);
+        }
+
+        // Render rating distribution chart
+        function renderRatingChart(animeList) {
+            const chart = document.getElementById('ratingChart');
+            if (animeList.length === 0) {
+                chart.innerHTML = '<div style="text-align: center; color: rgba(255,255,255,0.5); padding: 2rem;">No ratings yet. Start watching anime!</div>';
+                return;
+            }
+
+            const ranges = [
+                { label: '10', min: 9.5, max: 10, color: 'var(--neon-yellow)' },
+                { label: '9', min: 8.5, max: 9.5, color: 'var(--neon-green)' },
+                { label: '8', min: 7.5, max: 8.5, color: 'var(--secondary)' },
+                { label: '7', min: 6.5, max: 7.5, color: 'var(--neon-purple)' },
+                { label: '6', min: 5.5, max: 6.5, color: 'var(--primary)' },
+                { label: '<6', min: 0, max: 5.5, color: 'rgba(255,255,255,0.3)' }
+            ];
+
+            const maxCount = Math.max(...ranges.map(r => animeList.filter(a => a.rating >= r.min && a.rating < r.max).length), 1);
+
+            chart.innerHTML = ranges.map(r => {
+                const count = animeList.filter(a => a.rating >= r.min && a.rating < r.max).length;
+                const height = (count / maxCount * 100) || 5;
+                return `
+                    <div class="bar-item">
+                        <div class="bar" style="height: ${height}%; background: ${r.color};">
+                            <span class="bar-value">${count}</span>
+                            <span class="bar-label">${r.label}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Render genre cloud
+        function renderGenreCloud(animeList) {
+            const cloud = document.getElementById('genreCloud');
+            if (animeList.length === 0) {
+                cloud.innerHTML = '<div style="color: rgba(255,255,255,0.5);">No genres yet. Start exploring!</div>';
+                return;
+            }
+
+            const genreCounts = {};
+            animeList.forEach(a => {
+                a.genres.forEach(g => {
+                    genreCounts[g] = (genreCounts[g] || 0) + 1;
+                });
+            });
+
+            const sortedGenres = Object.entries(genreCounts).sort((a, b) => b[1] - a[1]);
+
+            cloud.innerHTML = sortedGenres.map(([genre, count]) => `
+                <span class="genre-tag">${genre} <span class="genre-count">${count}</span></span>
+            `).join('');
+        }
+
+        // Render activity timeline
+        function renderActivityTimeline() {
+            const timeline = document.getElementById('activityTimeline');
+            const days = 30;
+
+            // Generate random activity data (in real app, this would track actual activity)
+            timeline.innerHTML = Array.from({ length: days }, (_, i) => {
+                const height = Math.random() * 100;
+                const date = new Date();
+                date.setDate(date.getDate() - (days - i - 1));
+                const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+                return `
+                    <div class="timeline-day" style="height: ${height}%; opacity: ${0.3 + (height/200)};">
+                        <div class="timeline-tooltip">${dateStr}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Render achievements
+        function renderAchievements(favCount, watchCount, libCount) {
+            const grid = document.getElementById('achievementsGrid');
+
+            const achievements = [
+                { icon: 'fa-heart', name: 'First Love', desc: 'Add 1 anime to favorites', req: favCount >= 1 },
+                { icon: 'fa-heart', name: 'Collector', desc: 'Add 5 anime to favorites', req: favCount >= 5 },
+                { icon: 'fa-heart', name: 'Otaku Heart', desc: 'Add 10 anime to favorites', req: favCount >= 10 },
+                { icon: 'fa-check-circle', name: 'Beginner', desc: 'Watch 1 anime', req: watchCount >= 1 },
+                { icon: 'fa-check-circle', name: 'Watcher', desc: 'Watch 5 anime', req: watchCount >= 5 },
+                { icon: 'fa-check-circle', name: 'Binge Master', desc: 'Watch 10 anime', req: watchCount >= 10 },
+                { icon: 'fa-bookmark', name: 'Planner', desc: 'Add 1 to library', req: libCount >= 1 },
+                { icon: 'fa-bookmark', name: 'Organized', desc: 'Add 5 to library', req: libCount >= 5 },
+                { icon: 'fa-star', name: 'Critic', desc: 'Rate 5 anime', req: (favCount + watchCount) >= 5 },
+                { icon: 'fa-fire', name: 'On Fire', desc: 'Have 3+ favorites', req: favCount >= 3 },
+                { icon: 'fa-trophy', name: 'Champion', desc: 'Watch 20+ anime', req: watchCount >= 20 },
+                { icon: 'fa-crown', name: 'King/Queen', desc: 'Have 15+ favorites', req: favCount >= 15 }
+            ];
+
+            grid.innerHTML = achievements.map(a => `
+                <div class="achievement-card ${a.req ? '' : 'locked'}">
+                    <div class="achievement-icon"><i class="fas ${a.icon}"></i></div>
+                    <div class="achievement-name">${a.name}</div>
+                    <div class="achievement-desc">${a.desc}</div>
+                </div>
+            `).join('');
+        }
+
+        // Render top rated anime
+        function renderTopRated(animeList) {
+            const list = document.getElementById('topRatedList');
+            if (animeList.length === 0) {
+                list.innerHTML = '<div style="text-align: center; color: rgba(255,255,255,0.5); padding: 2rem;">No rated anime yet. Start watching!</div>';
+                return;
+            }
+
+            const sorted = [...animeList].sort((a, b) => b.rating - a.rating).slice(0, 10);
+
+            list.innerHTML = sorted.map((a, i) => `
+                <div class="list-item">
+                    <div class="list-rank">#${i + 1}</div>
+                    <img class="list-img" src="${a.image}" alt="${a.title}" loading="lazy">
+                    <div class="list-info">
+                        <div class="list-title">${a.title}</div>
+                        <div class="list-meta">${a.genres.slice(0, 2).join(', ')} • ${a.year}</div>
+                    </div>
+                    <div class="list-score">${a.rating}</div>
+                </div>
+            `).join('');
+        }
+
+        // Edit profile
+        function editProfile() {
+            const profile = JSON.parse(localStorage.getItem('animeverse_profile') || '{}');
+
+            document.getElementById('usernameInput').value = profile.username || '';
+            document.getElementById('sportAnimeInput').value = profile.sportAnime === 'Not set' ? '' : profile.sportAnime;
+            document.getElementById('videoGameInput').value = profile.videoGame === 'Not set' ? '' : profile.videoGame;
+
+            document.getElementById('setupSection').style.display = 'block';
+            document.getElementById('profileDashboard').style.display = 'none';
+            document.getElementById('editBtn').style.display = 'none';
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

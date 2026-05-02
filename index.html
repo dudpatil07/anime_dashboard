@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeVerse - Discover Your Next Adventure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="particles" id="particles"></div>
+
+    <header>
+        <div class="header-content">
+            <div class="logo" onclick="showSection('all')">ANIMEVERSE</div>
+            <nav>
+                <button class="nav-btn active" data-section="all" onclick="showSection('all')">
+                    <i class="fas fa-compass"></i> Discover
+                </button>
+                <button class="nav-btn" data-section="favorites" onclick="showSection('favorites')">
+                    <i class="fas fa-heart"></i> Favorites
+                </button>
+                <button class="nav-btn" data-section="library" onclick="showSection('library')">
+                    <i class="fas fa-bookmark"></i> Library
+                </button>
+                <button class="nav-btn" data-section="watched" onclick="showSection('watched')">
+                    <i class="fas fa-check-circle"></i> Watched
+                </button>
+            </nav>
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" id="searchInput" placeholder="Search anime..." oninput="handleSearch()">
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h1 id="pageTitle">Discover Anime</h1>
+            <p id="pageSubtitle">Explore thousands of anime across every genre imaginable</p>
+        </div>
+
+        <div class="stats-bar" id="statsBar">
+            <div class="stat-item">
+                <div class="stat-value" id="totalCount">0</div>
+                <div class="stat-label">Total Anime</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="favCount">0</div>
+                <div class="stat-label">Favorites</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="libCount">0</div>
+                <div class="stat-label">In Library</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="watchCount">0</div>
+                <div class="stat-label">Watched</div>
+            </div>
+        </div>
+
+        <div class="filters" id="filters">
+            <div class="filter-group">
+                <span class="filter-label">Genre:</span>
+                <button class="filter-btn active" data-genre="all" onclick="filterByGenre('all')">All</button>
+                <button class="filter-btn" data-genre="Action" onclick="filterByGenre('Action')">Action</button>
+                <button class="filter-btn" data-genre="Adventure" onclick="filterByGenre('Adventure')">Adventure</button>
+                <button class="filter-btn" data-genre="Comedy" onclick="filterByGenre('Comedy')">Comedy</button>
+                <button class="filter-btn" data-genre="Drama" onclick="filterByGenre('Drama')">Drama</button>
+                <button class="filter-btn" data-genre="Fantasy" onclick="filterByGenre('Fantasy')">Fantasy</button>
+                <button class="filter-btn" data-genre="Horror" onclick="filterByGenre('Horror')">Horror</button>
+                <button class="filter-btn" data-genre="Romance" onclick="filterByGenre('Romance')">Romance</button>
+                <button class="filter-btn" data-genre="Sci-Fi" onclick="filterByGenre('Sci-Fi')">Sci-Fi</button>
+                <button class="filter-btn" data-genre="Slice of Life" onclick="filterByGenre('Slice of Life')">Slice of Life</button>
+                <button class="filter-btn" data-genre="Sports" onclick="filterByGenre('Sports')">Sports</button>
+                <button class="filter-btn" data-genre="Supernatural" onclick="filterByGenre('Supernatural')">Supernatural</button>
+                <button class="filter-btn" data-genre="Thriller" onclick="filterByGenre('Thriller')">Thriller</button>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Sort:</span>
+                <select class="sort-select" id="sortSelect" onchange="handleSort()">
+                    <option value="popularity">Popularity</option>
+                    <option value="rating">Rating</option>
+                    <option value="newest">Newest</option>
+                    <option value="title">Title A-Z</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="anime-grid" id="animeGrid">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>Loading anime universe...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <img class="modal-image" id="modalImage" src="" alt="">
+            </div>
+            <div class="modal-body">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-meta">
+                    <div class="modal-meta-item">
+                        <i class="fas fa-star"></i>
+                        <span id="modalRating"></span>
+                    </div>
+                    <div class="modal-meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span id="modalYear"></span>
+                    </div>
+                    <div class="modal-meta-item">
+                        <i class="fas fa-tv"></i>
+                        <span id="modalEpisodes"></span>
+                    </div>
+                    <div class="modal-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span id="modalStatus"></span>
+                    </div>
+                </div>
+                <div class="modal-genres" id="modalGenres"></div>
+                <p class="modal-description" id="modalDescription"></p>
+                <div class="modal-actions">
+                    <button class="modal-action-btn btn-fav" id="modalFavBtn" onclick="toggleFromModal('favorite')">
+                        <i class="fas fa-heart"></i> <span id="modalFavText">Add to Favorites</span>
+                    </button>
+                    <button class="modal-action-btn btn-watch" id="modalWatchBtn" onclick="toggleFromModal('watched')">
+                        <i class="fas fa-check"></i> <span id="modalWatchText">Mark as Watched</span>
+                    </button>
+                    <button class="modal-action-btn btn-library" id="modalLibBtn" onclick="toggleFromModal('library')">
+                        <i class="fas fa-bookmark"></i> <span id="modalLibText">Add to Library</span>
+                    </button>
+                </div>
+                <div class="modal-external-links">
+                    <a href="#" id="modalCrunchyrollLink" target="_blank" class="modal-external-btn crunchyroll">
+                        <i class="fas fa-play-circle"></i> Watch on Crunchyroll
+                    </a>
+                    <a href="#" id="modalAnikaiLink" target="_blank" class="modal-external-btn anikai">
+                        <i class="fas fa-tv"></i> Watch on Anikai
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    
+    <script src="script.js"></script>
+</body>
+</html>
