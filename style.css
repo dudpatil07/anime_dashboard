@@ -960,29 +960,196 @@
         .modal-external-btn i {
             font-size: 1.1rem;
         }
-/* Daily Pick Button */
+/* Daily Pick Button - Super Visible with Character */
 .daily-pick-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
-    padding: 0.9rem 2rem;
-    background: linear-gradient(135deg, var(--neon-yellow), #ff8c00);
-    border: none;
-    border-radius: 50px;
-    color: var(--dark);
+    gap: 0.8rem;
+    margin-top: 2rem;
+    padding: 1.2rem 2.5rem;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ffd700 100%);
+    border: 3px solid #fff;
+    border-radius: 60px;
+    color: #1a1a2e;
     font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
+    font-weight: 900;
+    font-size: 1.2rem;
     text-decoration: none;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     text-transform: uppercase;
-    letter-spacing: 2px;
-    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+    letter-spacing: 3px;
+    box-shadow: 
+        0 0 20px rgba(255, 107, 53, 0.6),
+        0 0 40px rgba(255, 107, 53, 0.3),
+        0 0 60px rgba(255, 107, 53, 0.1),
+        inset 0 0 20px rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    animation: dailyPulse 2s infinite;
+}
+
+@keyframes dailyPulse {
+    0%, 100% { 
+        box-shadow: 
+            0 0 20px rgba(255, 107, 53, 0.6),
+            0 0 40px rgba(255, 107, 53, 0.3),
+            0 0 60px rgba(255, 107, 53, 0.1),
+            inset 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+    50% { 
+        box-shadow: 
+            0 0 30px rgba(255, 107, 53, 0.8),
+            0 0 50px rgba(255, 107, 53, 0.5),
+            0 0 70px rgba(255, 107, 53, 0.3),
+            inset 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+}
+
+.daily-pick-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 70%
+    );
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
 }
 
 .daily-pick-btn:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
+    transform: translateY(-5px) scale(1.08);
+    box-shadow: 
+        0 0 30px rgba(255, 107, 53, 0.9),
+        0 0 60px rgba(255, 107, 53, 0.5),
+        0 0 90px rgba(255, 107, 53, 0.3),
+        inset 0 0 30px rgba(255, 255, 255, 0.3);
+    letter-spacing: 4px;
+}
+
+.daily-pick-btn:active {
+    transform: translateY(-2px) scale(1.02);
+}
+
+.daily-pick-btn i {
+    font-size: 1.4rem;
+    animation: diceSpin 3s infinite linear;
+}
+
+@keyframes diceSpin {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(90deg); }
+    50% { transform: rotate(180deg); }
+    75% { transform: rotate(270deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Character decoration near the button */
+.hero {
+    position: relative;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px;
+    right: 10%;
+    width: 150px;
+    height: 150px;
+    background: url('https://i.imgur.com/JQ9qWzP.png') no-repeat center/contain;
+    opacity: 0.9;
+    pointer-events: none;
+    filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.5));
+    animation: floatChar 3s ease-in-out infinite;
+}
+
+@keyframes floatChar {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+}
+
+
+/* Daily Pick Container with Characters */
+.daily-pick-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    position: relative;
+}
+
+.daily-char-left,
+.daily-char-right {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 15px rgba(255, 107, 53, 0.6));
+    animation: charBounce 2s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+.daily-char-left {
+    animation-delay: 0s;
+    transform: scaleX(-1); /* Flip to face center */
+}
+
+.daily-char-right {
+    animation-delay: 1s;
+}
+
+@keyframes charBounce {
+    0%, 100% { transform: translateY(0px) scaleX(-1); }
+    50% { transform: translateY(-20px) scaleX(-1); }
+}
+
+.daily-char-right {
+    animation: charBounceRight 2s ease-in-out infinite;
+}
+
+@keyframes charBounceRight {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.daily-pick-container:hover .daily-char-left,
+.daily-pick-container:hover .daily-char-right {
+    filter: drop-shadow(0 0 25px rgba(255, 107, 53, 0.9));
+    transform: scale(1.1) scaleX(-1);
+}
+
+.daily-pick-container:hover .daily-char-right {
+    transform: scale(1.1);
+}
+
+/* Remove the old ::after pseudo-element character */
+.hero::after {
+    display: none !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .daily-char-left,
+    .daily-char-right {
+        width: 60px;
+        height: 60px;
+    }
+    .daily-pick-btn {
+        padding: 1rem 1.5rem;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+    .daily-pick-container {
+        gap: 0.5rem;
+    }
 }
