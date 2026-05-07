@@ -25,10 +25,7 @@ A stylish, frontend-only anime recommender web application with genre filtering,
 
 ## 🚀 Live Demo
 
-**[View Live Site](https://dudpatil07.github.io/anime-recommender/)**
-
-*(Replace with your actual GitHub Pages URL after setup)*
-
+**AnimeVerse - Discover Your Next Adventure https://share.google/UCPhT5XbWkdpGgTNJ
 ## 📁 Project Structure
 
 ```
